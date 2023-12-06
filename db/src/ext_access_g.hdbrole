@@ -1,0 +1,16 @@
+{
+  "role": {
+    "name": "MYAPPHANA_TARGET_ROLE_G#",
+    "schema_privileges": [
+      {
+        "privileges_with_grant_option": [
+          "DELETE",
+          "EXECUTE",
+          "SELECT",
+          "UPDATE",
+          "INSERT"
+        ]
+      }
+    ]
+  }
+}

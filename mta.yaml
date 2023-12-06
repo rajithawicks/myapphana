@@ -1,0 +1,93 @@
+_schema-version: "3.1"
+ID: myapphana
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: myapphana-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: myapphana-auth
+  - name: myapphana-db
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: npm
+- name: myapphana-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: myapphana-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: myapphana-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: myapphana-destination-service
+    parameters:
+      content-target: true
+  - name: myapphana_html_repo_host
+    parameters:
+      service-key:
+        name: myapphana_html_repo_host-key
+  - name: myapphana-auth
+    parameters:
+      service-key:
+        name: myapphana-auth-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: myappahana_myapphana_html_repo_host
+          ServiceInstanceName: myapphana-html5-app-host-service
+          ServiceKeyName: myapphana_html_repo_host-key
+          sap.cloud.service: myappahana
+        - Authentication: OAuth2UserTokenExchange
+          Name: myappahana_myapphana_auth
+          ServiceInstanceName: myapphana-auth
+          ServiceKeyName: myapphana-auth-key
+          sap.cloud.service: myappahana
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+resources:
+- name: myapphana-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      tenant-mode: dedicated
+      xsappname: myapphana-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: myapphana-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: myapphana-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      version: 1.0.0
+    service: destination
+    service-name: myapphana-destination-service
+    service-plan: lite
+- name: myapphana_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: myapphana-html5-app-host-service
+    service-plan: app-host
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npx cds build --production

@@ -1,0 +1,16 @@
+{
+  "role": {
+    "name": "MYAPPHANA_TARGET_ROLE",
+    "schema_privileges": [
+      {
+        "privileges": [
+          "DELETE",
+          "EXECUTE",
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ]
+      }
+    ]
+  }
+}
