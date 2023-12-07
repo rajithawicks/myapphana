@@ -1,0 +1,7 @@
+COLUMN TABLE "Sales2" (
+  "Id" INTEGER,
+  "Region" VARCHAR(100),
+  "Country" VARCHAR(100),
+  "Amount" INTEGER,
+  PRIMARY KEY ("Id")
+)

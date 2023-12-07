@@ -10,7 +10,7 @@ context my.bookshop {
 
 }
 
-// @cds.persistance.exists
+// @cds.persistence.exists
 // entity SALES {
 //   key  ID: Integer @title : 'ID';
 //        REGION: String(100) @title : 'Region';
