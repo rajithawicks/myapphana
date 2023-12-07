@@ -1,7 +1,19 @@
-namespace my.bookshop;
+//namespace my.bookshop;
 
-entity Books {
-  key ID : Integer;
-  title  : String;
-  stock  : Integer;
+context my.bookshop {
+
+  entity Books {
+    key ID    : Integer;
+        title : String;
+        stock : Integer;
+  }
+
 }
+
+// @cds.persistance.exists
+// entity SALES {
+//   key  ID: Integer @title : 'ID';
+//        REGION: String(100) @title : 'Region';
+//        COUNTRY: String(100) @title : 'Country';
+//        AMOUNT: Integer @title : 'Amount';
+// }

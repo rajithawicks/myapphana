@@ -1,7 +1,7 @@
-COLUMN TABLE "myapphana.db::sales" (
-  "id" INTEGER,
-  "region" VARCHAR(100),
-  "country" VARCHAR(100),
-  "amount" INTEGER,
-  PRIMARY KEY ("id")
+COLUMN TABLE "SALES" (
+  "ID" INTEGER,
+  "REGION" VARCHAR(100),
+  "COUNTRY" VARCHAR(100),
+  "AMOUNT" INTEGER,
+  PRIMARY KEY ("ID")
 )
